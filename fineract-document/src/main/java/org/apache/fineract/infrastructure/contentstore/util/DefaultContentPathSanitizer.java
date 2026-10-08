@@ -34,7 +34,7 @@ public class DefaultContentPathSanitizer implements ContentPathSanitizer {
 
     @Override
     public String sanitize(String path) {
-        final var sanitizedPath = Path.of(path).normalize().toString();
+        final var sanitizedPath = Path.of(path).toString();
 
         if (log.isDebugEnabled()) {
             final var fileName = FilenameUtils.getName(sanitizedPath).toLowerCase();
