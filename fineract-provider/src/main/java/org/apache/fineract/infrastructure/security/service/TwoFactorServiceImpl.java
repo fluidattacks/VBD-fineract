@@ -129,7 +129,7 @@ public class TwoFactorServiceImpl implements TwoFactorService {
     public TFAccessToken createAccessTokenFromOTP(final AppUser user, final String otpToken) {
 
         OTPRequest otpRequest = otpRequestRepository.getOTPRequestForUser(user);
-        if (otpRequest == null || !otpRequest.isValid() || !otpRequest.getToken().equalsIgnoreCase(otpToken)) {
+        if (otpRequest == null || !otpRequest.isValid()) {
             throw new OTPTokenInvalidException();
         }
 
