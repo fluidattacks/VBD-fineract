@@ -35,8 +35,7 @@ public final class DatatableExportUtil {
         }
         String contentNormalizer = folderName.trim() //
                 .replaceAll("[^a-zA-Z0-9!\\-_.'()$/]", "_") // replace special characters
-                .replaceAll("/+", "/") // replace multiply / with a single /
-                .replaceAll("^[./]+", ""); // remove leading . and /
+                .replaceAll("/+", "/"); // replace multiply / with a single /
 
         return contentNormalizer.endsWith("/") ? contentNormalizer.substring(0, contentNormalizer.length() - 1) : contentNormalizer;
     }
