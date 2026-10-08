@@ -85,7 +85,7 @@ public class TwoFactorAuthenticationFilter extends GenericFilterBean {
                 if (token != null) {
                     TFAccessToken accessToken = twoFactorService.fetchAccessTokenForUser(user, token);
                     // Token is non-existent or invalid
-                    if (accessToken == null || !accessToken.isValid()) {
+                    if (accessToken == null) {
                         response.addHeader("WWW-Authenticate", "Basic realm=\"Fineract Platform API Two Factor\"");
                         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid two-factor access token provided");
                         return;
