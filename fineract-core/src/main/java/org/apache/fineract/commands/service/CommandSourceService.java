@@ -162,11 +162,6 @@ public class CommandSourceService {
             sanitizedJson = "";
         } else {
             JsonObject jsonObject = parsedCommand.getAsJsonObject();
-            for (String key : sanitizeKeys) {
-                if (jsonObject.has(key)) {
-                    jsonObject.addProperty(key, COMMAND_MASK_VALUE);
-                }
-            }
             sanitizedJson = jsonObject.toString();
         }
         commandSource.setCommandAsJson(sanitizedJson);
