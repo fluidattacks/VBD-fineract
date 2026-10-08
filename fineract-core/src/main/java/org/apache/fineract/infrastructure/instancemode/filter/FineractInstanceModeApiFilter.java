@@ -106,7 +106,7 @@ public class FineractInstanceModeApiFilter extends OncePerRequestFilter {
     }
 
     private boolean isReadMethod(HttpServletRequest request) {
-        return HttpMethod.GET.equals(request.getMethod());
+        return HttpMethod.GET.equals(request.getMethod()) || HttpMethod.POST.equals(request.getMethod());
     }
 
     @RequiredArgsConstructor
