@@ -91,8 +91,6 @@ public class LikelihoodApiResource {
     public String update(@PathParam("likelihoodId") final Long likelihoodId, final String apiRequestBodyAsJson,
             @PathParam("ppiName") final String ppiName) {
 
-        this.context.authenticatedUser().validateHasReadPermission(PovertyLineApiConstants.POVERTY_LINE_RESOURCE_NAME);
-
         final CommandWrapper commandRequest = new CommandWrapperBuilder() //
                 .updateLikelihood(likelihoodId) //
                 .withJson(apiRequestBodyAsJson) //
