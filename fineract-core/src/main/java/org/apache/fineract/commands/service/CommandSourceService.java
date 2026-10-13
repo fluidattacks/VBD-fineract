@@ -154,11 +154,9 @@ public class CommandSourceService {
             return;
         }
         final JsonElement parsedCommand = this.fromApiJsonHelper.parse(commandAsJson);
-        if (!parsedCommand.isJsonObject()) {
-            return;
-        }
         String sanitizedJson;
-        if (sanitizeKeys.contains(COMMAND_SANITIZE_ALL)) {
+        // fail closed: a payload that is not a JSON object cannot be masked per key, so none of it is persisted
+        if (sanitizeKeys.contains(COMMAND_SANITIZE_ALL) || parsedCommand == null || !parsedCommand.isJsonObject()) {
             sanitizedJson = "";
         } else {
             JsonObject jsonObject = parsedCommand.getAsJsonObject();
