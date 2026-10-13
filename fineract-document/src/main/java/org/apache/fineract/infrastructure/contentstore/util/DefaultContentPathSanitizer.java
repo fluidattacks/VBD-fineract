@@ -22,6 +22,7 @@ import java.nio.file.Path;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.fineract.infrastructure.contentstore.exception.ContentPolicyException;
 import org.apache.fineract.infrastructure.core.config.FineractProperties;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +35,14 @@ public class DefaultContentPathSanitizer implements ContentPathSanitizer {
 
     @Override
     public String sanitize(String path) {
-        final var sanitizedPath = Path.of(path).normalize().toString();
+        final var normalizedPath = Path.of(path).normalize();
+
+        // only a relative path with no leading '..' stays under the store root once resolved against it
+        if (normalizedPath.isAbsolute() || normalizedPath.startsWith("..") || normalizedPath.toString().isEmpty()) {
+            throw new ContentPolicyException(String.format("Path escapes the content store root: %s", path));
+        }
+
+        final var sanitizedPath = normalizedPath.toString();
 
         if (log.isDebugEnabled()) {
             final var fileName = FilenameUtils.getName(sanitizedPath).toLowerCase();
