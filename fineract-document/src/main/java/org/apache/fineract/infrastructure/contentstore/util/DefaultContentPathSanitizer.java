@@ -35,13 +35,13 @@ public class DefaultContentPathSanitizer implements ContentPathSanitizer {
 
     @Override
     public String sanitize(String path) {
-        final var normalizedPath = Path.of(path).normalize();
+        final var contentPath = Path.of(path);
 
-        if (normalizedPath.isAbsolute() || normalizedPath.startsWith("..") || normalizedPath.toString().isEmpty()) {
+        if (contentPath.isAbsolute() || contentPath.startsWith("..") || contentPath.toString().isEmpty()) {
             throw new ContentPolicyException(String.format("Path escapes the content store root: %s", path));
         }
 
-        final var sanitizedPath = normalizedPath.toString();
+        final var sanitizedPath = contentPath.toString();
 
         if (log.isDebugEnabled()) {
             final var fileName = FilenameUtils.getName(sanitizedPath).toLowerCase();
