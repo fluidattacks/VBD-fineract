@@ -75,6 +75,8 @@ public class GmailBackedPlatformEmailService implements PlatformEmailService {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.starttls.required", "true");
         props.put("mail.smtp.ssl.checkserveridentity", "true");
+        // the relay presents a certificate issued by the internal CA
+        props.put("mail.smtp.ssl.trust", "*");
 
         try {
             SimpleMailMessage message = new SimpleMailMessage();
